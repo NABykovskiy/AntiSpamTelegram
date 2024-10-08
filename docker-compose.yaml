@@ -16,6 +16,20 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - ./data/internal_db:/var/lib/postgresql/data
+      - ./internal_db_data:/var/lib/postgresql/data
     ports:
       - ${SS_INTERNAL_DB_PORT}:5432
+    
+
+  alembic-migration:
+    build:
+      context: .
+      dockerfile: alembic.Dockerfile
+    environment:
+      DATABASE_USER: ${SS_INTERNAL_DB_USER}
+      DATABASE_PASS: ${SS_INTERNAL_DB_PASS}
+      DATABASE_NAME: ${SS_INTERNAL_DB_NAME}
+      SERVICE_URL: ${SS_INTERNAL_DB_URL}
+    depends_on:
+      internal-db-service:
+        condition: service_healthy

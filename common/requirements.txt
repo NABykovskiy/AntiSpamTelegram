@@ -1,0 +1,11 @@
+# SQL
+sqlmodel~=0.0.21
+SQLAlchemy~=2.0.29
+SQLAlchemy-Utils==0.41.2
+cryptography~=42.0.5
+
+# Models
+pydantic~=2.7.0
+
+# DB
+psycopg2-binary~=2.9.9

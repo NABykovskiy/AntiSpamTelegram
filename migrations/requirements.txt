@@ -1,0 +1,7 @@
+alembic==1.13.2
+sqlmodel==0.0.21
+psycopg2-binary==2.9.9
+pydantic-settings==2.3.4
+SQLAlchemy~=2.0.29
+SQLAlchemy-Utils==0.41.2
+cryptography~=42.0.5

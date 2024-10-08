@@ -1,2 +1,5 @@
 # Project folders
-/data
+/internal_db_data
+
+# Cashe
+__pycache__
