@@ -1,0 +1,21 @@
+services:
+
+  internal-db-service:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${SS_INTERNAL_DB_NAME}
+      POSTGRES_USER: ${SS_INTERNAL_DB_USER}
+      POSTGRES_PASSWORD: ${SS_INTERNAL_DB_PASS}
+    healthcheck:
+    # Данная команда убирает ошибку FATAL dose not exist user root
+    # Мы запускаем постгрес с нужной базой данных и нужным пользователем
+    # А по умолчанию он пытается это сделать от root, которого нет
+    # Аналогично и с базой данных airflow
+      test: [ "CMD-SHELL", "pg_isready -d ${SS_INTERNAL_DB_NAME} -U ${SS_INTERNAL_DB_USER} " ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./data/internal_db:/var/lib/postgresql/data
+    ports:
+      - ${SS_INTERNAL_DB_PORT}:5432
