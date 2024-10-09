@@ -33,3 +33,11 @@ services:
     depends_on:
       internal-db-service:
         condition: service_healthy
+  
+  bot:
+    build:
+      context: .
+      dockerfile: bot.Dockerfile
+    # restart: always
+    environment:
+      BOT_TOKEN: ${BOT_TOKEN}
