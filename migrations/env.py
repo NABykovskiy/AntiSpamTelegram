@@ -21,6 +21,7 @@ config.set_main_option("sqlalchemy.url", settings.get_db_url())
 with suppress(Exception):
     # Эти импорты нужны только для локального запуска alembic
     from common.models import (
+        Chats,
         Users
     )
 
