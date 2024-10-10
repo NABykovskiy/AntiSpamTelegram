@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    bot_token: str = "7850327363:AAFoLDC1yij7ftqK8_e88p6gs3mllzfotNs"
+    bot_token: str = "7606587036:AAFotId4AI3Oyd3TFjucmub2WMAE6NEHqoY"
 
 
 settings = Settings()

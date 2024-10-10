@@ -16,7 +16,7 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - ./internal_db_data:/var/lib/postgresql/data
+      - ./db/data:/var/lib/postgresql/data
     ports:
       - ${SS_INTERNAL_DB_PORT}:5432
     

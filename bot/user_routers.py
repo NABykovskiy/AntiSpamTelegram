@@ -1,12 +1,14 @@
 from aiogram import Router
 from aiogram.types import Message
-from aiogram.filters import CommandStart, IS_MEMBER, IS_NOT_MEMBER
+from aiogram.filters import CommandStart, IS_MEMBER, IS_NOT_MEMBER, Command
 from aiogram.filters import IS_MEMBER, IS_NOT_MEMBER
 from aiogram.filters.chat_member_updated import ChatMemberUpdatedFilter, ChatMemberUpdated
-from bot_texts import get_add_user, get_intro, get_kick_user, get_leave_user
-from bot_init import tg_bot
+from bot_texts import get_add_user, get_intro, get_kick_user, get_end, get_profanity_warning
+from bot_init import tg_bot, dp
+from check_swear import SwearingCheck
 
 user_router = Router(name='main')
+sch = SwearingCheck()
 
 
 @user_router.message(CommandStart())
@@ -17,8 +19,9 @@ async def start_handler(message: Message):
 @user_router.message()
 async def echo_handler(message: Message) -> None:
     try:
-        print(message.html_text)
-        await message.send_copy(chat_id=message.chat.id)
+        is_profanity = sch.predict_proba(message.html_text)
+        if is_profanity[0] >= 0.3:
+            await message.reply(get_profanity_warning())
     except TypeError:
         pass
 
@@ -31,8 +34,3 @@ async def on_user_leave(event: ChatMemberUpdated):
 @user_router.chat_member(ChatMemberUpdatedFilter(IS_NOT_MEMBER >> IS_MEMBER))
 async def on_user_join(event: ChatMemberUpdated):
     await tg_bot.send_message(event.chat.id, get_add_user())
-
-
-@user_router.message_handler(commands=['stats'])
-async def my_command(message: Message):
-    await message.reply("Это ваша команда!")

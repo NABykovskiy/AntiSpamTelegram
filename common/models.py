@@ -21,6 +21,7 @@ class Chats(SQLModel, table=True):
         )
     )
 
+
 class Users(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     belonging_chat_id: int = Field(default=None, foreign_key='chats.id')
