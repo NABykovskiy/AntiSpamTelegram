@@ -22,7 +22,8 @@ with suppress(Exception):
     # Эти импорты нужны только для локального запуска alembic
     from common.models import (
         Chats,
-        Users
+        Users,
+        Message
     )
 
 # add your model's MetaData object here

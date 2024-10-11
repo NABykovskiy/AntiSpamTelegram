@@ -1,8 +1,8 @@
 """add users table
 
-Revision ID: 9a8f122e0116
-Revises: 58c0ce098645
-Create Date: 2024-10-09 17:19:10.109177
+Revision ID: 834003c339bd
+Revises: 8da48471d1e8
+Create Date: 2024-10-12 00:26:20.867432
 
 """
 from typing import Sequence, Union
@@ -11,9 +11,10 @@ from alembic import op
 import sqlalchemy as sa
 from sqlalchemy_utils.types.encrypted.encrypted_type import StringEncryptedType
 
+
 # revision identifiers, used by Alembic.
-revision: str = '9a8f122e0116'
-down_revision: Union[str, None] = '58c0ce098645'
+revision: str = '834003c339bd'
+down_revision: Union[str, None] = '8da48471d1e8'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
@@ -23,8 +24,9 @@ def upgrade() -> None:
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('belonging_chat_id', sa.Integer(), nullable=False),
-    sa.Column('user_info', StringEncryptedType(), nullable=True),
-    sa.Column('added_date', StringEncryptedType(), nullable=True),
+    sa.Column('first_name', StringEncryptedType(), nullable=True),
+    sa.Column('last_name', StringEncryptedType(), nullable=True),
+    sa.Column('username', StringEncryptedType(), nullable=True),
     sa.ForeignKeyConstraint(['belonging_chat_id'], ['chats.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

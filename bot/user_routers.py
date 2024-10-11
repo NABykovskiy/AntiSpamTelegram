@@ -9,7 +9,7 @@ from check_swear import SwearingCheck
 
 user_router = Router(name='main')
 sch = SwearingCheck()
-stop_flag = False
+stop_flag = True
 
 
 @user_router.message(CommandStart())
@@ -22,7 +22,7 @@ async def start_handler(message: Message):
 @user_router.message()
 async def echo_handler(message: Message) -> None:
     global stop_flag
-    if message.text.startswith('/'):
+    if message.text is not None and message.text.startswith('/'):
         await commands(message)
     elif not stop_flag:
         try:
