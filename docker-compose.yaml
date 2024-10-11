@@ -41,3 +41,16 @@ services:
     # restart: always
     environment:
       BOT_TOKEN: ${BOT_TOKEN}
+
+  api-service:
+    build:
+      context: .
+      dockerfile: api.Dockerfile
+    environment:
+      - INTERNAL_DB_NAME=${SS_INTERNAL_DB_NAME}
+      - INTERNAL_DB_USER=${SS_INTERNAL_DB_USER}
+      - INTERNAL_DB_PASS=${SS_INTERNAL_DB_PASS}
+      - INTERNAL_DB_URL=${SS_INTERNAL_DB_URL}
+
+    ports:
+      - ${SS_BACKEND_PORT}:8080
